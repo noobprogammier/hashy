@@ -32,24 +32,38 @@ Again, do not use it for illegal purposes!
 Please respect my work!
   
 More explainations, about different arguments;
+  <br>
  -dd  - To set the downloading times, for instance set it to 100 and It'll wait for packets 100-th times. 
-  -cbc - Is for brute force for AES-128 enciphered, encrypted messages/texts. The argument should be encoded in base 64, I made it to base 64 in order to improve comparison. 
+  <br>
+  -cbc - Is for brute force for AES-128 enciphered, encrypted messages/texts. The argument should be encoded in base 64, I made it to base 64 in order to improve comparison.
+  <br>
   -at - Is to set a specific wordlist argument by providing a specific Github path and to load the wordlists from there. 
+  <br>
   -hs - Is for the hashsum, which is really important in many of the options.
+  <br>
   -a  - Is the algorithm option where you can specify, which hash algorithm you want to use. 
+  <br>
   -p - Is for passwordlist argument, mostly if you don't want to download lists at all.
+  <br>
   -l - Is to set a limit for the passwords that will be used.
+  <br>
   -v - Is to view the cracked password, when the password is found, this option should not be used, I mean It'll not do anything in "-cbc" mode, because I haven't make it do it.
+  <br>
   -cb - Is to specify the encryption sequence, which can be - aes(cbc) => aes(gcm) => hash and etc. This option should be used carefully. "Usage example: -cb 2.1.2.1.3". The decimal three should be always last, but I should fix it to read it. 
+  <br>
   -ck - Is to specify a file with words inside (the key, vector arguments), of course seperated by semicolons, for instance - "akfkafkakfakaaaa:akfkafkakfakaaaa". 
-  
-  
+  <br>
 Usage for md5: 
+  <br>
   python3 hashy.py -a md5 -hs a70f9e38ff015afaa9ab0aacabee2e13
+  <br>
 Usage for cbc:
+  <br>
   python3 hashy.py -cbc Ay8SUL9owCW1pn4tUlmDyQ== -ck lol.txt
+  <br>
 Usage for sequence:
+  <br>
   python3 hash.py -a md5 -hs <some encrypted value of sequence by other ciphers> -cb 1.2.3 -ck something.txt -v f 
-  
+  <br>
 Thank you for your patience!
   
