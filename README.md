@@ -62,13 +62,16 @@ Usage for md5:
   <br>
   python3 hashy.py -a md5 -hs a70f9e38ff015afaa9ab0aacabee2e13
   <br>
+  <br>
 Usage for cbc:
   <br>
   python3 hashy.py -cbc Ay8SUL9owCW1pn4tUlmDyQ== -ck lol.txt
   <br>
+  <br>
 Usage for sequence:
   <br>
   python3 hash.py -a md5 -hs <some encrypted value of sequence by other ciphers> -cb 1.2.3 -ck something.txt -v f 
+  <br>
   <br>
 Thank you for your patience!
   
