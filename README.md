@@ -60,11 +60,13 @@ More explainations, about different arguments:
   <br>
 Usage for md5: 
   <br>
+  ![image](https://user-images.githubusercontent.com/73231678/146908938-72d828e4-9253-4269-a1a9-8777a2972155.png)
   python3 hashy.py -a md5 -hs a70f9e38ff015afaa9ab0aacabee2e13
   <br>
   <br>
 Usage for cbc:
   <br>
+  ![image](https://user-images.githubusercontent.com/73231678/146909018-826880bb-9dfa-498b-861a-2927b510166f.png)
   python3 hashy.py -cbc Ay8SUL9owCW1pn4tUlmDyQ== -ck lol.txt
   <br>
   <br>
