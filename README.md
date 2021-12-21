@@ -30,8 +30,10 @@ python3 hash.py -a md5 -cb 2.3 -ck something.txt -hs <some value with multiple c
 Again, do not use it for illegal purposes!
 
 Please respect my work!
-  
-More explainations, about different arguments;
+<br>
+<br>
+More explainations, about different arguments:
+  <br>
   <br>
  -dd  - To set the downloading times, for instance set it to 100 and It'll wait for packets 100-th times. 
   <br>
