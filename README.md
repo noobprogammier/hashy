@@ -53,6 +53,9 @@ More explainations, about different arguments;
   <br>
   -ck - Is to specify a file with words inside (the key, vector arguments), of course seperated by semicolons, for instance - "akfkafkakfakaaaa:akfkafkakfakaaaa". 
   <br>
+  <br>
+  <br>
+  <br>
 Usage for md5: 
   <br>
   python3 hashy.py -a md5 -hs a70f9e38ff015afaa9ab0aacabee2e13
