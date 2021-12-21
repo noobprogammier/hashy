@@ -75,5 +75,5 @@ Usage for sequence:
   python3 hash.py -a md5 -hs <some encrypted value of sequence by other ciphers> -cb 1.2.3 -ck something.txt -v f 
   <br>
   <br>
-Thank you for your patience!
+Thank you for your patience! ❤️❤️
   
