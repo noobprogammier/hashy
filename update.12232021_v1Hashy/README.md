@@ -15,4 +15,8 @@
 - Syntax for crack. <br>
  **python3 hashy.py --crack <!hash-string!> --limit 5000 -at <!some-wordlist!>**
  ![image](https://user-images.githubusercontent.com/73231678/147237618-da3ab1f9-d27b-42b7-94e8-4c1a636d59c6.png)
-
+- Syntax for automode. <br>
+ **python3 hashy.py -aa <!hash-string!> -a md5 **
+ ![image](https://user-images.githubusercontent.com/73231678/147237820-451d2c53-9938-4ee3-b6bd-72c8069778b5.png)
+ >[!WARNING] 
+ > This option might affect performance!
