@@ -8,6 +8,6 @@
 <hr>
 <br>
 <br>
-# How to use it.
+How to use it.
 Syntax for rule set.
-** python3 hashy.py -hs <hash-string> --rule set=bigrand,length=8 --limit 5000 **. 
+python3 hashy.py -hs <hash-string> --rule set=bigrand,length=8 --limit 5000.  
