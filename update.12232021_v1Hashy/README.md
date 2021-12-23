@@ -5,9 +5,7 @@
   Automations are two modes - "automode" and "crack", the automode declears everything on its best, while the crack option will only try to find the identification of the actual algorithm.
   In the crack option all you have to do is only to specify the hash value/sum.
 - --identify option is especially to find the algorithm of the specific hash. 
-<hr>
-<br>
-<br>
-How to use it.
-Syntax for rule set.
-python3 hashy.py -hs <hash-string> --rule set=bigrand,length=8 --limit 5000.  
+- 
+#### How to use it.
+- Syntax for rule set.
+ ** python3 hashy.py -hs <hash-string> --rule set=bigrand,length=8 --limit 5000 **.  
