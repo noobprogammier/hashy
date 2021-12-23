@@ -4,7 +4,7 @@
 * What about the automations.
   Automations are two modes - "automode" and "crack", the automode declears everything on its best, while the crack option will only try to find the identification of the actual algorithm.
   In the crack option all you have to do is only to specify the hash value/sum.
-- --identify option is especially to find the algorithm of the specific hash. 
+- --identify option is especially to find the algorithm of the specified hash. 
 
 
 #### How to use it.
