@@ -7,5 +7,5 @@
 - --identify option is especially to find the algorithm of the specific hash. 
 - 
 #### How to use it.
-- Syntax for rule set.
+- Syntax for rule set. <br>
  **python3 hashy.py -hs <hash-string> --rule set=bigrand,length=8 --limit 5000**.  
