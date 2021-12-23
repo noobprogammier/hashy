@@ -11,5 +11,8 @@
 - Syntax for rule set. <br>
  **python3 hashy.py -hs <!hash-string!> --rule set=bigrand,length=8 --limit 5000**.
   ![image](https://user-images.githubusercontent.com/73231678/147237463-6ce16e40-942b-4e0a-bbca-4a296a692bf4.png)
+  <br>
 - Syntax for crack. <br>
  **python3 hashy.py --crack <!hash-string!> --limit 5000 -at <!some-wordlist!>**
+ ![image](https://user-images.githubusercontent.com/73231678/147237618-da3ab1f9-d27b-42b7-94e8-4c1a636d59c6.png)
+
