@@ -7,6 +7,25 @@ from base64 import b64encode, b64decode
 class IncorrectAlg(Exception):
 	pass 
 class attribs(object):
+	top_lists = [
+"danielmiessler/SecLists/master/Passwords/Most-Popular-Letter-Passes.txt",
+"danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords-1000000.txt",
+"danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords-10.txt",
+"danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords-100.txt",
+"danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords-1000.txt",
+"danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords-10000.txt",
+"danielmiessler/SecLists/master/Passwords/xato-net-10-million-passwords-100000.txt",
+"danielmiessler/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt",
+"berandal666/Passwords/master/hak5.txt",
+"berandal666/Passwords/master/myspace.txt", 
+"berandal666/Passwords/master/000webhost.txt",
+"danielmiessler/SecLists/master/Passwords/Leaked-Databases/rockyou-75.txt",
+"jeanphorn/wordlist/master/passlist.txt",
+"miglen/bulgarian-wordlists/master/wordlists/all-6lyokavica.txt",
+"miglen/bulgarian-wordlists/master/wordlists/all-cyrillic.txt",
+"fuzzdb-project/fuzzdb/master/regex/nsa-wordlist.txt",
+"huntergregal/wordlists/master/names.txt",
+"danielmiessler/SecLists/master/Usernames/Names/names.txt"]
 	def sha224_create():
 		hash_ = sha224()
 		hash_.update(b"12345")
@@ -77,8 +96,14 @@ d59ae37ebaefdc0d899604084c08c9b4551478969d86ed0858e46c7451940449
 		data_stream = []
 		val_ = range(1, depth)
 		blob_ = ""
+		wrap_.settimeout(2)
 		for iters in val_:
-			blob_ += wrap_.recv(123123).decode("ISO-8859-1")
+			try:
+				blob_ += wrap_.recv(123123).decode("ISO-8859-1")
+				if "404 Not Found" in blob_:
+					break 
+			except:
+				break 
 			#print("[DATA] Downloaded %d bytes. . . "%(len(blob_)))
 		blair = 0 
 		for items in blob_.split("\r\x0A\r\x0A")[1].split("\x0A"):
@@ -257,6 +282,8 @@ def FormList(target, list_, times):
 							cp_ = new(items.encode("utf-8"), MODE_CBC, items.encode("utf-8"))
 							template_new.append(cp_.encrypt(pad(pwords.encode("utf-8"), 16)) + b":" + pwords.encode("utf-8"))
 							bear += 1
+						else:
+							print("[DATA] Unsupported key!")
 		elif items == "aesgcm":
 			for pwords in target:
 				for items in lists_:
@@ -269,6 +296,8 @@ def FormList(target, list_, times):
 							cp_ = new(items.encode("utf-8"), MODE_GCM, items.encode("utf-8"))
 							template_new.append(cp_.encrypt(pwords.encode("utf-8"))  + b":"+ pwords.encode("utf-8"))
 							bear += 1
+						else:
+							print("[DATA] Unsupported key!")
 	return template_new
 def StartCBC(list:str, sum:str, cipher_keys:str) -> str:
 	def Encipher(list, keys):
@@ -286,6 +315,8 @@ def StartCBC(list:str, sum:str, cipher_keys:str) -> str:
 						model = new(text_.encode("utf-8"), MODE_CBC, text_.encode("utf-8"))
 						power.append(model.encrypt(pad(pwords.encode("ISO-8859-1"), 16)) + b"::::::" + pwords.encode("utf-8"))
 						brea += 1
+				else:
+					print("[DATA] Unsupported key!")
 		base_ = []
 		words_ = []
 		for items in power:
@@ -328,14 +359,79 @@ Time-started . . . . . .  :%s Time now: %s
 				input("\r\x0A\r\x0A")
 				break 
 	enciphere_all = Encipher(list=list, keys=cipher_keys)
+def StartGCM(list, sum, cipher_keys):
+	def ConvertToAeses(password_list, keys):
+		actual_ = []
+		keys_ = []
+		with open(keys, "rb") as file:
+			for lines in file:
+				keys_.append(lines.decode("utf-8"))
+		for items in password_list:
+			for values in keys_:
+				brea = 0
+				for io in range(2):
+					if len(values.split(":")[0]) == 32:
+						blob_ = values.split(":")[brea]
+						if len(blob_) == 32:
+							print(blob_)
+							aes_ = new(blob_.encode("utf-8"), MODE_GCM, blob_.encode("utf-8"))
+							actual_.append(b64encode(aes_.encrypt(items.encode("utf-8"))) + b":::" + items.encode("utf-8"))
+					else:
+						print("[DATA] Unsupported key!")
+					brea += 1
+		return actual_
+	load_ = ConvertToAeses(password_list=list, keys=cipher_keys)
+	print("[DATA] Loaded %s enciphered passwords! And are ready for comparison!"%(len(load_,)))
+	total = len(load_)
+	attempt = 0
+	from datetime import datetime
+	syntax_ = str(datetime.now().hour) + ":" + str(datetime.now().minute) + ":" + str(datetime.now().second)
+	for items in load_:
+		pword_ = items.decode("utf-8").split(":::")[1]
+		def check_if(x, y):
+			if x == y:
+				return True
+		"""
+Basically, the x is the candidate and y is the required one.
+"""
+		print('''\r\x0A
+Type. . . . . . . . . .: gcm
+Enciphered. . . . . . .: %s
+Target-candidate. . . .: %s
+Word-candidate. . . . .: %s
+Attempt: %s/%s
+Total: %s
+Status. . . . . . . . .: OK
+---------------------------------+
+Time-started . . . . . .: %s
+---------------------------------+
+'''%(sum, items.decode("utf-8").split(":::")[0], pword_, attempt, total, total, syntax_))
+		if check_if(x=items.decode("utf-8").split(":::")[1], y=sum) == True:
+			finished = str(datetime.now().hour) + ":" + str(datetime.now().minute) + ":" + "(" + str(datetime.now().second) + ")"
+			print('''
+Type. . . . . . . . . .: gcm
+Enciphered. . . . . . .: %s
+Target-candidate. . . .: %s
+Word-candidate. . . . .: %s
+Attempt: %s/%s
+Total: %s
+Status. . . . . . . . .: OK
+---------------------------------+
+Time-finished . . . . . .: %s
+---------------------------------+'''%(sum, items.decode("utf-8").split(":::")[0], pword_, attempt, total, total, syntax_2))
+			input("\r\x0A\r\x0A")
+			break 
+		attempt += 1
 def __main__():
 	parsie = ArgumentParser(description='''
 This is a tool to find a hash's value.
 Do not use it for illegal purposes!
 
 Requirements: hexadecimals required only!''')
+	parsie.add_argument("-aa", "--automode", help="Just provide an argument, and It'll start automatically using over 50 paths of wordlists and already defined limitations, depth and stuff.. This option uses threading! Default is 40.", default=40, required=False)
 	parsie.add_argument("-dd", "--downloaddepth", help="Specify the depth, It shouldn't be > 1000. Default is 50.", default=50, required=False)
 	parsie.add_argument("-cbc", "--cbc", help="Specify an AES CBC (AES 128) enciphered text, encoded in base 64 to try to crack it.", required=False)
+	parsie.add_argument("-gcm", "--gcm", help="Specfiy an AES GCM (AES 256) enciphered text, encoded in base 64 to try to crack it.", required=False)
 	parsie.add_argument("-at", "--automatew", help="Automate wordlist origin. Default is rockyou.txt. Specify a GitHUB directory (for instance sth/sth/sth.txt)", default="danielmiessler/SecLists/master/Passwords/Leaked-Databases/rockyou-75.txt", required=False)
 	parsie.add_argument("-hs", "--hashsum", help="Specify your hashsum value, input. If you want to try more try by splitting them with coma. For instance, --hashsum hasha, hashb, hashc.", required=False)
 	parsie.add_argument("-a", "--alogirthm", help="Algoirthms: sha256, sha512, md5.", required=False)
@@ -373,6 +469,15 @@ Requirements: hexadecimals required only!''')
 		else:
 			attck_ = StartCBC(list=list_, sum=parsie.parse_args().cbc, cipher_keys=parsie.parse_args().ckey)
 			exit()
+	if parsie.parse_args().gcm != None:
+		print("[DATA] Starting GCM brute force attack. . . . .")
+		if "," in parsie.parse_args().gcm:
+			for items in parsie.parse_args().gcm.split(","):
+				outie_ = StartGCM(list=list_, sum=items, cipher_keys=parsie.parse_args().ckey)
+			exit()
+		else:
+			outie_ = StartGCM(list=list_, sum=parsie.parse_args().gcm, cipher_keys=parsie.parse_args().ckey)
+			exit()
 	orig_hash = parsie.parse_args().hashsum
 	if parsie.parse_args().hashsum != None and "," in parsie.parse_args().hashsum:
 		for hashsum in parsie.parse_args().hashsum.split(","):
@@ -385,6 +490,20 @@ Requirements: hexadecimals required only!''')
 			raise IncorrectAlg("Incorrect algorithm provided! This is %s bytes, required %s!"%(len(parsie.parse_args().hashsum), act_))
 	if parsie.parse_args().ciphers != None:
 		list_ = FormList(target=list_, list_=parsie.parse_args().ckey, times=parsie.parse_args().ciphers.replace("3", ""))
+	if parsie.parse_args().automode != None:
+		memory = {}
+		bea = 0
+		reas = {}
+		for items in attribs.top_lists:
+			memory[bea] = attribs.get_words(limit=1000000, origin=items, depth=1000)
+			reas[items] = items
+			bea += 1
+		for items in memory:
+			def multi():
+				att_ = attribs(passwords=memory[items], hashsum=parsie.parse_args().hashsum, algorithm=parsie.parse_args().alogirthm, view="1", wr="Automode")
+			from threading import Thread
+			for io in range(1):
+				Thread(target=multi).start()
 	if "," in orig_hash:
 		for hashsum in orig_hash.split(","):
 			attribs(passwords=list_, hashsum=hashsum, algorithm=parsie.parse_args().alogirthm, view=parsie.parse_args().view)
