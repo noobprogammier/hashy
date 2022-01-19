@@ -5,7 +5,7 @@ Hashy is a tool for recovering encrypted passwords in different versions of the 
 
 More about it:
 tl;dr
-It is a fast and easy to use program in order to recover a data for which you forgot the value. For instance, the idea started from my service. . . I had a problem and I forgot my password, and probably that happened for maybe 20th time, so I decided to make a password recovery tool. You can also check my service on - "http://hnoob.redirectme.net". 
+It is a fast and easy to use program in order to recover a data for which you forgot the value. For instance, the idea started from my service. . . I had a problem and I forgot my password, and probably that happened for maybe 20th time, so I decided to make a password recovery tool. You can also check my service on - "http://sipistoverdi.viewdns.net". 
 Syntax is pretty easy.
 Also **DO NOT USE IT** for any illegal activities!
 
